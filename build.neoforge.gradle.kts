@@ -92,4 +92,12 @@ publishMods {
         minecraftVersions.addAll(additionalVersions)
         embeds("midnightlib")
     }
+
+    curseforge {
+        projectId = property("publish.curseforge") as String
+        accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
+        minecraftVersions.add(stonecutter.current.version)
+        minecraftVersions.addAll(additionalVersions)
+        embeds("midnightlib")
+    }
 }
