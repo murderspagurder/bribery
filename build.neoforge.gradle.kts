@@ -20,6 +20,8 @@ base.archivesName = property("mod.id") as String
 dependencies {
     implementation("maven.modrinth:midnightlib:${property("deps.midnightlib")}")
     jarJar("maven.modrinth:midnightlib:${property("deps.midnightlib")}")
+
+    implementation("org.jetbrains:annotations:${property("deps.annotations")}")
 }
 
 jsonlang {
@@ -47,7 +49,7 @@ neoForge {
 
 tasks {
     processResources {
-        exclude("**/fabric.mod.json", "**/bribery.accesswidener")
+        exclude("**/fabric.mod.json", "**/bribery.accesswidener", "**/mods.toml")
     }
 
     named("createMinecraftArtifacts") {
@@ -64,8 +66,13 @@ tasks {
 
 java {
     withSourcesJar()
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    val javaCompat = if (stonecutter.eval(stonecutter.current.version, ">=1.21")) {
+        JavaVersion.VERSION_21
+    } else {
+        JavaVersion.VERSION_17
+    }
+    sourceCompatibility = javaCompat
+    targetCompatibility = javaCompat
 }
 
 val additionalVersionsStr = findProperty("publish.additionalVersions") as String?
