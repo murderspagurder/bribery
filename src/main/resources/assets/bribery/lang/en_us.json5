@@ -1,0 +1,156 @@
+{
+  bribery: {
+    midnightconfig: {
+      title: 'Bribery Config',
+      category: {},
+
+      ironBribeCredit: {
+        '.': 'Iron Bribe Credit',
+        'label.tooltip': 'The number of negative reputation points the entity should ignore per iron ingot if bribery succeeds. 0 disables bribing with iron ingots.'
+      },
+      ironRejectionChanceModifier: {
+        '.': 'Iron Rejection Chance Modifier',
+        'label.tooltip': 'The amount that each iron ingot held decreases the chance that the entity will reject the bribe'
+      },
+
+      goldBribeCredit: {
+        '.': 'Gold Bribe Credit',
+        'label.tooltip': 'The number of negative reputation points the entity should ignore per gold ingot if bribery succeeds. 0 disables bribing with gold ingots.'
+      },
+      goldRejectionChanceModifier: {
+        '.': 'Gold Rejection Chance Modifier',
+        'label.tooltip': 'The amount that each gold ingot held decreases the chance that the entity will reject the bribe'
+      },
+
+      emeraldBribeCredit: {
+        '.': 'Emerald Bribe Credit',
+        'label.tooltip': 'The number of negative reputation points the entity should ignore per emerald if bribery succeeds. 0 disables bribing with emeralds.'
+      },
+      emeraldRejectionChanceModifier: {
+        '.': 'Emerald Rejection Chance Modifier',
+        'label.tooltip': 'The amount that each emerald held decreases the chance that the entity will reject the bribe'
+      },
+
+      diamondBribeCredit: {
+        '.': 'Diamond Bribe Credit',
+        'label.tooltip': 'The number of negative reputation points the entity should ignore per diamond if bribery succeeds. 0 disabled bribing with diamonds.'
+      },
+      diamondRejectionChanceModifier: {
+        '.': 'Diamond Rejection Chance Modifier',
+        'label.tooltip': 'The amount that each diamond held decreases the chance that the entity will reject the bribe'
+      },
+
+      netheriteBribeCredit: {
+        '.': 'Netherite Bribe Credit',
+        'label.tooltip': 'The number of negative reputation points the entity should ignore per netherite ingot if bribery succeeds. 0 disabled bribing with netherite ingots.'
+      },
+      netheriteRejectionChanceModifier: {
+        '.': 'Netherite Rejection Chance Modifier',
+        'label.tooltip': 'The amount that each netherite ingot held decreases the chance that the entity will reject the bribe'
+      },
+
+      bribableVillagers: {
+        '.': 'Bribable Villagers',
+        'label.tooltip': 'Enable giving villagers bribes'
+      },
+      villagerRejectionChance: {
+        '.': 'Villager Rejection Chance',
+        'label.tooltip': 'The base chance that a villager rejects a bribe (out of 100). Extortionists do not reject bribes.'
+      },
+      minimumVillagerRejectionChance: {
+        '.': 'Minimum Villager Rejection Chance',
+        'label.tooltip': 'The minimum amount the chance can be reduced to via modifiers. (This does not affect alreadyBribedMultiplier)'
+      },
+
+      bribableGolems: {
+        '.': 'Bribable Golems',
+        'label.tooltip': 'Enable giving golems bribes'
+      },
+      golemRejectionChance: {
+        '.': 'Golem Rejection Chance',
+        'label.tooltip': 'The base chance that a golem rejects a bribe (out of 100). Extortionists do not reject bribes.'
+      },
+      minimumGolemRejectionChance: {
+        '.': 'Minimum Golem Rejection Chance',
+        'label.tooltip': 'The minimum amount the chance can be reduced to via modifiers. (This does not affect alreadyBribedMultiplier)'
+      },
+
+      acceptedCooldownSeconds: {
+        '.': 'Accepted Cooldown Seconds',
+        'label.tooltip': 'How long until a bribe can be attempted after an entity has accepted one'
+      },
+      acceptedGossipMultiplier: {
+        '.': 'Accepted Gossip Multiplier',
+        'label.tooltip': 'When a bribe is accepted, the bribe credit is multiplied by this value to determine the weight of positive gossip. Setting this to 0 prevents villagers from gossiping about accepted bribes.'
+      },
+      rejectedCooldownSeconds: {
+        '.': 'Rejected Cooldown Seconds',
+        'label.tooltip': 'How long until a bribe can be considered after an entity has rejected one'
+      },
+      rejectedCooldownAllowAttempts: {
+        '.': 'Rejected Cooldown Allow Attempts',
+        'label.tooltip': 'Allow players to attempt bribing an entity during its cooldown after rejecting one. These bribes, if allowed, are always rejected.'
+      },
+      rejectedGossipMultiplier: {
+        '.': 'Rejected Gossip Multiplier',
+        'label.tooltip': 'When a bribe is rejected, the bribe credit is multiplied by this value to determine the weight of negative gossip. Setting this to 0 prevents villagers from gossiping about rejected bribes.'
+      },
+
+      alreadyBribedMultiplier: {
+        '.': 'Already Bribed Multiplier',
+        'label.tooltip': 'Multiplier to apply to the rejection chance when an entity is already bribed by the player, to control how likely an entity is to reject subsequent bribes. This option is applied after modifiers and ignores minimum chances. Extortionists always accept subsequent bribes.'
+      },
+      extortionistChance: {
+        '.': 'Extortionist Chance',
+        'label.tooltip': 'The chance (out of 100) that an entity will become an extortionist after accepting a bribe'
+      },
+      bribeExpiryMinutes: {
+        '.': "Bribe Expiry Minutes",
+        'label.tooltip': 'The number of minutes since the last accepted bribe that an entity\'s bribe status will expire (except extortionists)'
+      },
+      extortionTimeMinutes: {
+        '.': 'Extortion Time Minutes',
+        'label.tooltip': 'The number of minutes after the initial bribe or last extortion payment that the entity will begin extorting the player'
+      },
+      extortionDeadlineMinutes: {
+        '.': 'Extortion Deadline Minutes',
+        'label.tooltip': 'The amount of time a player has to fulfill a payment after they have been extorted'
+      },
+      extortionPriceMultiplier: {
+        '.': 'Extortion Price Multiplier',
+        'label.tooltip': 'Multiplier applied to the extortion demand, which has a base value of the largest bribe a player has made to the entity'
+      },
+      extortionRequiresLineOfSight: {
+        '.': 'Extortion Requires Line of Sight',
+        'label.tooltip': 'Entity must be within range and have line of sight to player to begin extorting.'
+      },
+      extortionDetectionRangeSqr: {
+        '.': 'Extortion Detection Range Square',
+        'label.tooltip': 'The square distance the entity must be to the player to begin extorting. (64 = ~8 blocks)'
+      },
+      hardExpiryDays: {
+        '.': 'Hard Expiry Days',
+        'label.tooltip': 'The number of real life days (only counted when running) before bribe data is wiped, regardless of extortionist status'
+      },
+
+      bribeXpMultiplier: {
+        '.': 'Bribe XP Multiplier',
+        'label.tooltip': 'Multiplier applied to a bribe credit to drop as XP. Setting to 0 disables bribes as an XP source.'
+      },
+
+      verbose: 'Verbose'
+
+    }
+  },
+
+  key: {
+    bribery: {
+      openConfig: "Open Config"
+    }
+  },
+  category: {
+    bribery: {
+      keybinds: "Bribery"
+    }
+  }
+}

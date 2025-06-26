@@ -1,0 +1,24 @@
+license = "MIT"
+
+[[mods]]
+modId = "bribery"
+displayName = "Bribery"
+version = "${version}"
+displayURL = "https://modrinth.com/mod/bribery"
+logoFile = "assets/icon.png"
+authors = "murder_spagurder"
+description = '''Village Bribery System'''
+
+[[mixins]]
+config = "bribery.mixins.json"
+
+[[dependencies.bribery]]
+modId = "neoforge"
+type = "required"
+versionRange = "[1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.bribery]]
+modId = "minecraft"
+type = "required"

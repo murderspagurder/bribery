@@ -1,0 +1,5 @@
+accessWidener v2 named
+
+accessible field net/minecraft/world/entity/ai/gossip/GossipContainer gossips Ljava/util/Map;
+accessible field net/minecraft/world/entity/ai/gossip/GossipContainer$EntityGossips entries Lit/unimi/dsi/fastutil/objects/Object2IntMap;
+accessible method net/minecraft/world/entity/ai/gossip/GossipContainer getOrCreate (Ljava/util/UUID;)Lnet/minecraft/world/entity/ai/gossip/GossipContainer$EntityGossips;

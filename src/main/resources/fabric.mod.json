@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "bribery",
+  "name": "Bribery",
+  "version": "${version}",
+  "authors": [
+    "murder_spagurder"
+  ],
+  "contact": {
+    "sources": "https://github.com/murderspagurder/bribery",
+    "issues": "https://github.com/murderspagurder/bribery/issues"
+  },
+  "description": "Village Bribery System",
+  "icon": "assets/icon.png",
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.spagurder.bribery.fabric.BriberyFabric"
+    ],
+    "client": [
+      "dev.spagurder.bribery.fabric.BriberyFabricClient"
+    ]
+  },
+  "accessWidener": "bribery.accesswidener",
+  "mixins": [
+    "bribery.mixins.json"
+  ],
+  "depends": {
+    "fabric-api": "*"
+  }
+}
