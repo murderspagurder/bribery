@@ -1,1 +1,3 @@
-### Initial Commit - Version 0.1.0
+- Switched bribe processing from level tick to server tick
+- Fix major bug: implement robust handling of multiple dimensions/levels
+- Switch currency update hook to mixin in anticipation of potential future 1.20.x support

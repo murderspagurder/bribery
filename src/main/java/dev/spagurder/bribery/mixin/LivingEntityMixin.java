@@ -27,7 +27,7 @@ public class LivingEntityMixin {
             if (damagingEntity instanceof ServerPlayer player) {
                 LivingEntity entity = (LivingEntity)(Object) this;
                 if (player.isShiftKeyDown()) {
-                    ItemStack bribe = player.getWeaponItem();
+                    ItemStack bribe = player.getMainHandItem();
                     if (Config.CURRENCY_CONFIGS.containsKey(bribe.getItem())) {
                         cir.setReturnValue(
                                 BribeHandler.handle(entity, player, bribe)

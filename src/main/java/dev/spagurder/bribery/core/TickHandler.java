@@ -5,6 +5,7 @@ import dev.spagurder.bribery.state.BribeData;
 import dev.spagurder.bribery.state.BriberyState;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,8 +21,8 @@ public class TickHandler {
     private static final Queue<BribeKey> pendingBribes = new ArrayDeque<>();
     private record BribeKey(UUID entityUUID, @Nullable UUID playerUUID) {}
 
-    public static void onTick(ServerLevel level) {
-        processNextBribeState(level);
+    public static void onTick(MinecraftServer server) {
+        processNextBribeState(server);
     }
 
     private static void refreshBribeQueue() {
@@ -37,7 +38,7 @@ public class TickHandler {
         });
     }
 
-    private static void processNextBribeState(ServerLevel level) {
+    private static void processNextBribeState(MinecraftServer server) {
         BribeKey key = pendingBribes.poll();
         if (key == null) {
             refreshBribeQueue();
@@ -58,27 +59,27 @@ public class TickHandler {
 
         processBribeData(
                 () -> entityStates.remove(key.playerUUID),
-                level, key.entityUUID, key.playerUUID, state
+                server, key.entityUUID, key.playerUUID, state
         );
     }
 
     private static void processBribeData(
-            Runnable remove, ServerLevel level, UUID entityUUID, UUID playerUUID, BribeData state) {
-        long gameTime = level.getGameTime();
+            Runnable remove, MinecraftServer server, UUID entityUUID, UUID playerUUID, BribeData state) {
+        long gameTime = BriberyUtil.overworldGameTime(server);
         if (state.isExtortionist) {
             long hardDelta = gameTime - state.bribedAt;
             if (hardDelta < 0 || hardDelta >= Config.hardExpiryDays * 28800L) {
                 remove.run();
                 return;
             }
-            LivingEntity entity = (LivingEntity) level.getEntity(entityUUID);
+            LivingEntity entity = (LivingEntity) BriberyUtil.findEntity(server, entityUUID);
             if (entity == null) return;
-            ServerPlayer player = (ServerPlayer) level.getEntity(playerUUID);
+            ServerPlayer player = BriberyUtil.findPlayer(server, playerUUID);
             if (player == null) return;
             long delta = gameTime - state.extortedAt;
             if (state.isExtorting) {
                 if (delta >= 0 && delta < Config.extortionDeadlineMinutes) {
-                    level.sendParticles(
+                    ((ServerLevel) entity.level()).sendParticles(
                             ParticleTypes.SMOKE, entity.getX(), entity.getY() + 1.0, entity.getZ(),
                             1, 0.1, 0.1, 0.1, 0.005
                     );
@@ -92,7 +93,7 @@ public class TickHandler {
                 BribeHandler.reject(entity, player, state, extortionBalance);
             } else {
                 if (delta < 0 || delta > Config.extortionTimeMinutes) {
-                    if (entity.distanceToSqr(player) <= Config.extortionDetectionRangeSqr) {
+                    if (BriberyUtil.inProximitySqr(entity, player, Config.extortionDetectionRangeSqr)) {
                         if (!Config.extortionRequiresLineOfSight || entity.hasLineOfSight(player)) {
                             state.isExtorting = true;
                             state.extortedAt = gameTime;

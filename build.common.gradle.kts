@@ -10,7 +10,7 @@ tasks.named<ProcessResources>("processResources") {
         this["minecraft"] = prop("deps.minecraft")
     }
 
-    filesMatching(listOf("fabric.mod.json", "META-INF/neoforge.mods.toml")) {
+    filesMatching(listOf("fabric.mod.json", "META-INF/neoforge.mods.toml", "META-INF/mods.toml")) {
         expand(props)
     }
 }

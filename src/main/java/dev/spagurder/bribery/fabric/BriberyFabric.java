@@ -23,7 +23,9 @@ public class BriberyFabric implements ModInitializer {
             BriberyState.unload();
         });
 
-        ServerTickEvents.END_WORLD_TICK.register(TickHandler::onTick);
+        ServerTickEvents.END_SERVER_TICK.register((server) -> {
+            TickHandler.onTick(server);
+        });
     }
 
 }

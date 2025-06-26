@@ -63,10 +63,4 @@ public class Config extends MidnightConfig {
         CURRENCY_CONFIGS.put(Items.NETHERITE_INGOT, new CurrencyConfig(netheriteBribeCredit, netheriteRejectionChanceModifier));
     }
 
-    @Override
-    public void writeChanges(String modId) {
-        super.writeChanges(modId);
-        refreshCurrencyItems();
-    }
-
 }

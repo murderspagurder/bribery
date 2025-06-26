@@ -28,6 +28,8 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric-api")}")
     modImplementation("maven.modrinth:midnightlib:${property("deps.midnightlib")}")
     include("maven.modrinth:midnightlib:${property("deps.midnightlib")}")
+
+    implementation("org.jetbrains:annotations:${property("deps.annotations")}")
 }
 
 jsonlang {
@@ -35,15 +37,9 @@ jsonlang {
     prettyPrint = true
 }
 
-java {
-    withSourcesJar()
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
-}
-
 tasks {
     processResources {
-        exclude("**/neoforge.mods.toml")
+        exclude("**/neoforge.mods.toml", "**/mods.toml")
     }
 
     register<Copy>("buildAndCollect") {
@@ -56,8 +52,13 @@ tasks {
 
 java {
     withSourcesJar()
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    val javaCompat = if (stonecutter.eval(stonecutter.current.version, ">=1.21")) {
+        JavaVersion.VERSION_21
+    } else {
+        JavaVersion.VERSION_17
+    }
+    sourceCompatibility = javaCompat
+    targetCompatibility = javaCompat
 }
 
 val additionalVersionsStr = findProperty("publish.additionalVersions") as String?

@@ -20,6 +20,7 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 @Mod(Bribery.MOD_ID)
 public class BriberyNeoforge {
@@ -47,10 +48,8 @@ public class BriberyNeoforge {
     }
 
     @SubscribeEvent
-    public void onLevelTick(LevelTickEvent.Post event) {
-        if (event.getLevel() instanceof ServerLevel level) {
-            TickHandler.onTick(level);
-        }
+    public void onServerTick(ServerTickEvent.Post event) {
+        TickHandler.onTick(event.getServer());
     }
 
     @EventBusSubscriber(modid = Bribery.MOD_ID, value = Dist.CLIENT)
