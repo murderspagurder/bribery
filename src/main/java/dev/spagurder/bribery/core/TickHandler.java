@@ -98,10 +98,10 @@ public class TickHandler {
                             state.isExtorting = true;
                             state.extortedAt = gameTime;
                             state.extortionBalance = state.largestBribe;
-                            player.displayClientMessage(Component.literal(
-                                    entity.getDisplayName() + " has demanded additional payment...\n" +
-                                            "You have " + Config.extortionTimeMinutes + " minutes to pay... or else..."
-                            ), false);
+                            player.displayClientMessage(Component.empty().append(entity.getDisplayName())
+                                            .append(" has demanded additional payment...\n" +
+                                            "You have " + Config.extortionTimeMinutes + " minutes to pay... or else...")
+                            , false);
                         }
                     }
                 }
