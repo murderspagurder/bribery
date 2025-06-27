@@ -52,7 +52,7 @@ public class Config extends MidnightConfig {
 
     @Entry public static boolean verbose = false;
 
-    public static final Map<Item, CurrencyConfig> CURRENCY_CONFIGS = new HashMap<>();
+    public static transient final Map<Item, CurrencyConfig> CURRENCY_CONFIGS = new HashMap<>();
 
     public static void refreshCurrencyItems() {
         CURRENCY_CONFIGS.clear();

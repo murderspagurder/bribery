@@ -31,7 +31,6 @@ jsonlang {
 
 neoForge {
     version = property("deps.neoforge") as String
-    validateAccessTransformers = true
 
     runs {
         register("client") {
@@ -66,7 +65,7 @@ tasks {
 
 java {
     withSourcesJar()
-    val javaCompat = if (stonecutter.eval(stonecutter.current.version, ">=1.21")) {
+    val javaCompat = if (stonecutter.eval(stonecutter.current.version, ">=1.20.5")) {
         JavaVersion.VERSION_21
     } else {
         JavaVersion.VERSION_17
