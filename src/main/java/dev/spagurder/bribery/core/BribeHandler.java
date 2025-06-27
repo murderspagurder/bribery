@@ -189,12 +189,12 @@ public class BribeHandler {
         );
         if (state.extortionBalance > 0) {
             player.displayClientMessage(
-                    Component.literal(entity.getDisplayName() + " is demanding more payment."),
+                    Component.empty().append(entity.getDisplayName()).append(" is demanding more payment."),
                     true
             );
         } else {
             player.displayClientMessage(
-                    Component.literal(entity.getDisplayName() + " is satisfied... for now."),
+                    Component.empty().append(entity.getDisplayName()).append(" is satisfied... for now."),
                     true
             );
             state.isExtorting = false;
@@ -207,6 +207,7 @@ public class BribeHandler {
     public static void cancel(LivingEntity entity, ServerPlayer player) {
         BribeData state = BriberyState.getBribeData(entity.getUUID(), player.getUUID());
         if (state == null) return;
+        if (state.isRejected) return;
         if (state.isExtorting) {
             reject(entity, player, state, state.largestBribe * Config.extortionPriceMultiplier);
             return;

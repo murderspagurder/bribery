@@ -10,6 +10,7 @@
     "LivingEntityMixin",
     "MidnightConfigMixin",
     "MobMixin",
+    "ServerPlayerMixin",
     "VillagerMixin",
     "WorldSaveMixin"
   ],

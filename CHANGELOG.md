@@ -1,4 +1,3 @@
-- Implement 1.20.x versions on Fabric and Neoforge
-  - 1.20.1-fabric build works on Sinytra
-- Remove AWs/ATs, move negative gossip cancellation to after transfer
-- Fix state management bug: load/unload state on server events, not level events
+- Add rejection death message
+- Fix bug where hitting entity cancels rejection
+- Fix displayName bug
