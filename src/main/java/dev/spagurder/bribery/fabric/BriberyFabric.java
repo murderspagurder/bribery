@@ -5,6 +5,7 @@ import dev.spagurder.bribery.Bribery;
 import dev.spagurder.bribery.core.TickHandler;
 import dev.spagurder.bribery.state.BriberyState;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 
@@ -14,11 +15,9 @@ public class BriberyFabric implements ModInitializer {
     public void onInitialize() {
         Bribery.init();
 
-        ServerWorldEvents.LOAD.register((server, world) -> {
-            BriberyState.load(world);
-        });
+        ServerLifecycleEvents.SERVER_STARTED.register(BriberyState::load);
 
-        ServerWorldEvents.UNLOAD.register((server, world) -> {
+        ServerLifecycleEvents.SERVER_STOPPED.register((server) -> {
             BriberyState.save();
             BriberyState.unload();
         });

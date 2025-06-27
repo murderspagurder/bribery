@@ -1,3 +1,4 @@
-- Switched bribe processing from level tick to server tick
-- Fix major bug: implement robust handling of multiple dimensions/levels
-- Switch currency update hook to mixin in anticipation of potential future 1.20.x support
+- Implement 1.20.x versions on Fabric and Neoforge
+  - 1.20.1-fabric build works on Sinytra
+- Remove AWs/ATs, move negative gossip cancellation to after transfer
+- Fix state management bug: load/unload state on server events, not level events

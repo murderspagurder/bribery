@@ -22,7 +22,6 @@
       "dev.spagurder.bribery.fabric.BriberyFabricClient"
     ]
   },
-  "accessWidener": "bribery.accesswidener",
   "mixins": [
     "bribery.mixins.json"
   ],

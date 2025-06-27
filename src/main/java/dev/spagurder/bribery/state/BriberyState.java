@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 import dev.spagurder.bribery.Bribery;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.LevelResource;
 import org.jetbrains.annotations.Nullable;
@@ -39,8 +40,8 @@ public class BriberyState {
         return entityData != null ? entityData.get(playerUUID) : null;
     }
 
-    public static void load(ServerLevel level) {
-        Path worldPath = level.getServer().getWorldPath(LevelResource.ROOT);
+    public static void load(MinecraftServer server) {
+        Path worldPath = server.getWorldPath(LevelResource.ROOT);
         SAVE_FILE = worldPath.resolve(Bribery.MOD_ID).resolve("state.json");
         if (!Files.exists(SAVE_FILE)) {
             bribeStates = new HashMap<>();

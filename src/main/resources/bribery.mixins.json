@@ -2,7 +2,7 @@
   "package": "dev.spagurder.bribery.mixin",
   "required": true,
   "minVersion": "0.8",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_17",
   "injectors": {
     "defaultRequire": 1
   },

@@ -17,10 +17,6 @@ idea {
 version = "${property("mod.version")}+${property("deps.minecraft")}-fabric"
 base.archivesName = property("mod.id") as String
 
-loom {
-    accessWidenerPath = rootProject.file("src/main/resources/bribery.accesswidener")
-}
-
 dependencies {
     minecraft("com.mojang:minecraft:${property("deps.minecraft")}")
     mappings(loom.officialMojangMappings())
@@ -72,11 +68,23 @@ publishMods {
     file = tasks.remapJar.map { it.archiveFile.get() }
     additionalFiles.from(tasks.remapSourcesJar.map { it.archiveFile.get() })
 
+    val sinytra = findProperty("deps.sinytra")?.toString()?.toBoolean() ?: false
+
     type = BETA
     displayName = "Bribery ${property("mod.version")} for ${stonecutter.current.version} Fabric"
     version = "${property("mod.version")}+${property("deps.minecraft")}-fabric"
-    changelog = provider { rootProject.file("CHANGELOG.md").readText() }
+    changelog = provider {
+        val changelog = rootProject.file("CHANGELOG.md").readText()
+        if (sinytra) {
+            "## Sinytra and Forgified Fabric API are required on Forge!!!\n\n${changelog}"
+        } else {
+            changelog
+        }
+    }
     modLoaders.add("fabric")
+    if (sinytra) {
+        modLoaders.add("forge")
+    }
 
     modrinth {
         projectId = property("publish.modrinth") as String
@@ -85,6 +93,9 @@ publishMods {
         minecraftVersions.addAll(additionalVersions)
         requires("fabric-api")
         embeds("midnightlib")
+        if (sinytra) {
+            optional("connector", "forgified-fabric-api")
+        }
     }
 
     curseforge {
@@ -94,5 +105,8 @@ publishMods {
         minecraftVersions.addAll(additionalVersions)
         requires("fabric-api")
         embeds("midnightlib")
+        if (sinytra) {
+            optional("sinytra-connector", "forgified-fabric-api")
+        }
     }
 }

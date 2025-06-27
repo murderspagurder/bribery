@@ -4,7 +4,6 @@ import dev.spagurder.bribery.state.BribeData;
 import dev.spagurder.bribery.state.BriberyState;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.gossip.GossipContainer;
 import net.minecraft.world.entity.ai.gossip.GossipType;
@@ -13,7 +12,6 @@ import net.minecraft.world.entity.npc.Villager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
@@ -37,37 +35,26 @@ public class VillagerMixin {
         }
     }
 
-    @Redirect(
+    @Inject(
             method = "gossip",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/entity/ai/gossip/GossipContainer;transferFrom(Lnet/minecraft/world/entity/ai/gossip/GossipContainer;Lnet/minecraft/util/RandomSource;I)V"
+                    target = "Lnet/minecraft/world/entity/ai/gossip/GossipContainer;transferFrom(Lnet/minecraft/world/entity/ai/gossip/GossipContainer;Lnet/minecraft/util/RandomSource;I)V",
+                    shift = At.Shift.AFTER
             )
     )
-    public void redirectTransferFrom(
-            GossipContainer thisGossips, GossipContainer otherGossips,
-            RandomSource randomSource, int i,
-            ServerLevel level, Villager otherVillager, long gameTime
-    ) {
-        GossipContainer filtered = new GossipContainer();
-        //? >1.21.4 {
-        filtered.putAll(otherGossips);
-        //?} else {
-        /*// Cleanup access wideners when removing
-        otherGossips.gossips.forEach((uUID, entityGossips) -> filtered.getOrCreate(uUID).entries.putAll(entityGossips.entries));
-        *///?}
-
-        Map<UUID, BribeData> entityData = BriberyState.bribeStates.get(((Villager)(Object)this).getUUID());
+    public void afterTransferFrom(ServerLevel serverLevel, Villager otherVillager, long l, CallbackInfo ci) {
+        Villager villager = (Villager)(Object)this;
+        GossipContainer gossips = villager.getGossips();
+        Map<UUID, BribeData> entityData = BriberyState.bribeStates.get(villager.getUUID());
         if (entityData != null) {
             entityData.forEach((uuid, state) -> {
                 if (state.isBribed) {
-                    filtered.remove(uuid, GossipType.MAJOR_NEGATIVE);
-                    filtered.remove(uuid, GossipType.MINOR_NEGATIVE);
+                    gossips.remove(uuid, GossipType.MAJOR_NEGATIVE);
+                    gossips.remove(uuid, GossipType.MINOR_NEGATIVE);
                 }
             });
         }
-
-        thisGossips.transferFrom(filtered, randomSource, i);
     }
 
 }
