@@ -32,6 +32,7 @@ public class BribeHandler {
         } else {
             return true;
         }
+        witnessBribe(entity, player);
 
         CurrencyConfig cc = Config.CURRENCY_CONFIGS.get(bribe.getItem());
         if (cc.bribeCredit <= 0) {
@@ -104,6 +105,11 @@ public class BribeHandler {
             if (state.isBribed) {
                 rejectionChance *= Config.alreadyBribedMultiplier;
             }
+            if (entity instanceof NeutralMob mob) {
+                if (mob.isAngry()) {
+                    rejectionChance += Config.aggroRejectionModifier;
+                }
+            }
             if (random.nextFloat() < (rejectionChance / 100f)) {
                 reject(entity, player, state, credit);
                 return false;
@@ -115,20 +121,29 @@ public class BribeHandler {
     }
 
     public static void accept(LivingEntity entity, ServerPlayer player, BribeData state, float credit, Random random) {
+        long gameTime = BriberyUtil.overworldGameTime(entity.getServer());
         if (!state.isExtortionist) {
             if (random.nextFloat() < (Config.extortionistChance / 100f)) {
                 state.isExtortionist = true;
+                state.extortedAt = gameTime;
             }
         }
         state.isBribed = true;
         state.isCoolingDown = true;
-        state.bribedAt = BriberyUtil.overworldGameTime(entity.getServer());
+        state.bribedAt = gameTime;
         state.bribeCredits += (int) Math.ceil(credit);
         if (Config.bribeXpMultiplier > 0) {
             int totalXp = (int) Math.ceil(credit * Config.bribeXpMultiplier);
             entity.level().addFreshEntity(
                     new ExperienceOrb(entity.level(), entity.getX(), entity.getY(), entity.getZ(), totalXp)
             );
+        }
+        if (entity instanceof NeutralMob mob) {
+            if (mob.isAngry()) {
+                mob.setTarget(null);
+                mob.setPersistentAngerTarget(null);
+                mob.setRemainingPersistentAngerTime(0);
+            }
         }
         if (entity instanceof Villager villager) {
             villager.playSound(SoundEvents.VILLAGER_YES);
@@ -176,9 +191,7 @@ public class BribeHandler {
             }
         }
         if (entity instanceof NeutralMob mob) {
-            mob.setTarget(player);
-            mob.setPersistentAngerTarget(player.getUUID());
-            mob.setRemainingPersistentAngerTime(12000);
+            BriberyUtil.makeMobAngry(mob, player);
         }
     }
 
@@ -213,6 +226,27 @@ public class BribeHandler {
             return;
         }
         BriberyState.bribeStates.get(entity.getUUID()).remove(player.getUUID());
+    }
+
+    public static void witnessBribe(LivingEntity entity, ServerPlayer player) {
+        if (Config.witnessBribeRange <= 0) return;
+        entity.level().getEntitiesOfClass(
+                LivingEntity.class,
+                entity.getBoundingBox().inflate(Config.witnessBribeRange),
+                e -> e != entity && BriberyUtil.isValidWitness(e) && e.hasLineOfSight(player)
+        ).forEach(witness -> {
+            BribeData state = BriberyState.getBribeData(witness.getUUID(), player.getUUID());
+            if (state == null || !state.isBribed) {
+                if (BriberyUtil.inFOV(witness, player, Config.witnessBribeFovDegrees)) {
+                    if (witness instanceof Villager villager) {
+                        villager.getGossips().add(player.getUUID(), GossipType.MAJOR_POSITIVE, 25);
+                    }
+                    if (witness instanceof NeutralMob mob) {
+                        BriberyUtil.makeMobAngry(mob, player);
+                    }
+                }
+            }
+        });
     }
 
 }

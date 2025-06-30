@@ -1,3 +1,4 @@
-- Add rejection death message
-- Fix bug where hitting entity cancels rejection
-- Fix displayName bug
+- Villagers and golems now react to "witnessing" a bribe attempt occur
+- Neutral mobs are less likely to accept bribes when angry
+- Neutral mobs lose aggro when they accept a bribe
+- Fix extortionist init bug
