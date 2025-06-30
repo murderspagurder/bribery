@@ -74,6 +74,10 @@
         '.': 'Minimum Golem Rejection Chance',
         'label.tooltip': 'The minimum amount the chance can be reduced to via modifiers. (This does not affect alreadyBribedMultiplier)'
       },
+      aggroRejectionModifier: {
+        '.': 'Aggro Rejection Modifier',
+        'label.tooltip': 'The amount the rejection chance will increase if the entity is currently angry.'
+      },
 
       acceptedCooldownSeconds: {
         '.': 'Accepted Cooldown Seconds',
@@ -136,6 +140,15 @@
       bribeXpMultiplier: {
         '.': 'Bribe XP Multiplier',
         'label.tooltip': 'Multiplier applied to a bribe credit to drop as XP. Setting to 0 disables bribes as an XP source.'
+      },
+
+      witnessBribeRange: {
+        '.': 'Witness Bribe Range',
+        'label.tooltip': 'The proximity an entity must be to a bribed entity to witness the bribe. Setting this to 0 disables bribe witnessing.'
+      },
+      witnessBribeFovDegrees: {
+        '.': 'Witness Bribe FOV Degrees',
+        'label.tooltip': 'Adjust how \'directly\' the entity must be looking at the player'
       },
 
       verbose: 'Verbose'
