@@ -78,7 +78,7 @@ public class TickHandler {
             if (player == null) return;
             long delta = gameTime - state.extortedAt;
             if (state.isExtorting) {
-                if (delta >= 0 && delta < Config.extortionDeadlineMinutes) {
+                if (delta >= 0 && delta < Config.extortionDeadlineMinutes * 1200L) {
                     ((ServerLevel) entity.level()).sendParticles(
                             ParticleTypes.SMOKE, entity.getX(), entity.getY() + 1.0, entity.getZ(),
                             1, 0.1, 0.1, 0.1, 0.005
@@ -92,7 +92,7 @@ public class TickHandler {
                 state.extortionBalance = 0;
                 BribeHandler.reject(entity, player, state, extortionBalance);
             } else {
-                if (delta < 0 || delta > Config.extortionTimeMinutes) {
+                if (delta < 0 || delta > Config.extortionTimeMinutes * 1200L) {
                     if (BriberyUtil.inProximitySqr(entity, player, Config.extortionDetectionRangeSqr)) {
                         if (!Config.extortionRequiresLineOfSight || entity.hasLineOfSight(player)) {
                             state.isExtorting = true;
@@ -100,7 +100,7 @@ public class TickHandler {
                             state.extortionBalance = state.largestBribe;
                             player.displayClientMessage(Component.empty().append(entity.getDisplayName())
                                             .append(" has demanded additional payment...\n" +
-                                            "You have " + Config.extortionTimeMinutes + " minutes to pay... or else...")
+                                            "You have " + Config.extortionDeadlineMinutes + " minutes to pay... or else...")
                             , false);
                         }
                     }

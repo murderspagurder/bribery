@@ -15,6 +15,9 @@ When an entity accepts a bribe, they also have a chance of becoming an extortion
 periodically blackmail the player, threatening to spread negative gossip or aggro the player of they do
 not provide sufficient funds within the time limit.
 
+Other entities can also witness bribes occur. Unbribed villager witnesses will spread negative gossip, and unbribed 
+golems will become angry at the player.
+
 Currency types, chances/modifiers, cooldowns and more can be fine-tuned in `config/bribery.json`.
 Additionally, thanks to MidnightLib, this can be configured in realtime using the config screen 
 (key bindable), Mod Menu, or the `/midnightconfig bribery` command.

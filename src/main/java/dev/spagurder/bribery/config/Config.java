@@ -31,6 +31,7 @@ public class Config extends MidnightConfig {
     @Entry public static boolean bribableGolems = true;
     @Entry(min = 0, max = 100) public static float golemRejectionChance = 80.0f;
     @Entry(min = 0, max = 100) public static float minimumGolemRejectionChance = 10.0f;
+    @Entry(min = 0, max = 100) public static float aggroRejectionModifier = 10.0f;
 
     @Entry(min = 0) public static int acceptedCooldownSeconds = 300;
     @Entry(min = 0) public static float acceptedGossipMultiplier = 0.25f;
@@ -49,6 +50,9 @@ public class Config extends MidnightConfig {
     @Entry(min = 1) public static int hardExpiryDays = 15;
 
     @Entry(min = 0) public static float bribeXpMultiplier = 0.25f;
+
+    @Entry(min = 0) public static double witnessBribeRange = 16.0;
+    @Entry(min = 0) public static double witnessBribeFovDegrees = 120;
 
     @Entry public static boolean verbose = false;
 
