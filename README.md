@@ -22,7 +22,7 @@ Currency types, chances/modifiers, cooldowns and more can be fine-tuned in `conf
 Additionally, thanks to MidnightLib, this can be configured in realtime using the config screen 
 (key bindable), Mod Menu, or the `/midnightconfig bribery` command.
 
-Compatibility with Guard Villagers is planned in the future.
+Compatible with Thief and Guard Villagers
 
 Special thanks to:
 - KikuGie: Stonecutter and other gradle utils, project layout role model
