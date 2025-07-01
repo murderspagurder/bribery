@@ -1,6 +1,6 @@
 package dev.spagurder.bribery.mixin;
 
-import dev.spagurder.bribery.config.Config;
+import dev.spagurder.bribery.config.TransientConfig;
 import dev.spagurder.bribery.core.BribeHandler;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,7 +28,7 @@ public class LivingEntityMixin {
                 LivingEntity entity = (LivingEntity)(Object) this;
                 if (player.isShiftKeyDown()) {
                     ItemStack bribe = player.getMainHandItem();
-                    if (Config.CURRENCY_CONFIGS.containsKey(bribe.getItem())) {
+                    if (TransientConfig.CURRENCY_CONFIGS.containsKey(bribe.getItem())) {
                         cir.setReturnValue(
                                 BribeHandler.handle(entity, player, bribe)
                         );
