@@ -38,10 +38,6 @@ public class BriberyUtil {
         return server.overworld().getGameTime();
     }
 
-    public static boolean isValidWitness(LivingEntity entity) {
-        return (entity instanceof Villager) || (entity instanceof IronGolem);
-    }
-
     public static void makeMobAngry(NeutralMob mob, ServerPlayer player) {
         mob.setTarget(player);
         mob.setPersistentAngerTarget(player.getUUID());
@@ -56,6 +52,13 @@ public class BriberyUtil {
         double dot = lookVector.dot(targetVector);
         double angle = Math.acos(dot) * (180 / Math.PI);
         return angle <= (fovDegrees / 2.0);
+    }
+
+    public static boolean isBribable(LivingEntity entity) {
+        for (Class<? extends LivingEntity> clazz : BribableEntityRegistry.BRIBABLE_ENTITIES) {
+            if (clazz.isInstance(entity)) return true;
+        }
+        return false;
     }
 
 }

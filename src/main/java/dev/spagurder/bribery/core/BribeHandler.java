@@ -16,7 +16,6 @@ import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.ai.gossip.GossipType;
-import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.ItemStack;
 
@@ -28,7 +27,7 @@ public class BribeHandler {
         EntityConfig ec;
         if (entity instanceof Villager) {
             ec = new EntityConfig(EntityConfig.VILLAGER);
-        } else if (entity instanceof IronGolem) {
+        } else if (BriberyUtil.isBribable(entity)) {
             ec = new EntityConfig(EntityConfig.GOLEM);
         } else {
             return true;
@@ -234,7 +233,7 @@ public class BribeHandler {
         entity.level().getEntitiesOfClass(
                 LivingEntity.class,
                 entity.getBoundingBox().inflate(Config.witnessBribeRange),
-                e -> e != entity && BriberyUtil.isValidWitness(e) && e.hasLineOfSight(player)
+                e -> e != entity && BriberyUtil.isBribable(e) && e.hasLineOfSight(player)
         ).forEach(witness -> {
             BribeData state = BriberyState.getBribeData(witness.getUUID(), player.getUUID());
             if (state == null || !state.isBribed) {

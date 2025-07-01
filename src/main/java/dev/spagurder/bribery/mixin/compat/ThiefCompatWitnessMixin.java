@@ -1,6 +1,5 @@
 package dev.spagurder.bribery.mixin.compat;
 
-import dev.spagurder.bribery.Bribery;
 import dev.spagurder.bribery.state.BribeData;
 import dev.spagurder.bribery.state.BriberyState;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,7 +21,6 @@ public class ThiefCompatWitnessMixin {
         if (criminal instanceof ServerPlayer player) {
             BribeData state = BriberyState.getBribeData(entity.getUUID(), player.getUUID());
             if (state != null && state.isBribed) {
-                Bribery.LOGGER.info("Blocking Witness");
                 cir.setReturnValue(false);
             }
         }

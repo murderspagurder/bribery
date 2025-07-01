@@ -39,18 +39,18 @@ public class BriberyNeoforge {
     }
 
     @SubscribeEvent
-    public void onServerStarted(ServerStartedEvent event) {
+    public static void onServerStarted(ServerStartedEvent event) {
         BriberyState.load(event.getServer());
     }
 
     @SubscribeEvent
-    public void onServerStopped(ServerStoppedEvent event) {
+    public static void onServerStopped(ServerStoppedEvent event) {
         BriberyState.save();
         BriberyState.unload();
     }
 
     @SubscribeEvent
-    public void onServerTick(
+    public static void onServerTick(
             //? >1.20.4 {
             ServerTickEvent.Post event
             //?} else {
