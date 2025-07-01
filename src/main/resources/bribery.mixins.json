@@ -12,7 +12,8 @@
     "MobMixin",
     "ServerPlayerMixin",
     "VillagerMixin",
-    "WorldSaveMixin"
+    "WorldSaveMixin",
+    "compat.ThiefCompatWitnessMixin"
   ],
   "client": []
 }

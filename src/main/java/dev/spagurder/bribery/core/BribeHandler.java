@@ -3,6 +3,7 @@ package dev.spagurder.bribery.core;
 import dev.spagurder.bribery.config.Config;
 import dev.spagurder.bribery.config.CurrencyConfig;
 import dev.spagurder.bribery.config.EntityConfig;
+import dev.spagurder.bribery.config.TransientConfig;
 import dev.spagurder.bribery.state.BribeData;
 import dev.spagurder.bribery.state.BriberyState;
 import net.minecraft.core.particles.ParticleTypes;
@@ -34,7 +35,7 @@ public class BribeHandler {
         }
         witnessBribe(entity, player);
 
-        CurrencyConfig cc = Config.CURRENCY_CONFIGS.get(bribe.getItem());
+        CurrencyConfig cc = TransientConfig.CURRENCY_CONFIGS.get(bribe.getItem());
         if (cc.bribeCredit <= 0) {
             if (Config.verbose) {
                 player.displayClientMessage(Component.literal("This currency is not enabled for bribing."), true);

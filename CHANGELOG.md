@@ -1,4 +1,2 @@
-- Villagers and golems now react to "witnessing" a bribe attempt occur
-- Neutral mobs are less likely to accept bribes when angry
-- Neutral mobs lose aggro when they accept a bribe
-- Fix extortionist init bug
+- Move transient config fields to separate class (fix GSON errors)
+- Add Thief Compat

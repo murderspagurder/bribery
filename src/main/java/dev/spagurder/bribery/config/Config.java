@@ -56,15 +56,13 @@ public class Config extends MidnightConfig {
 
     @Entry public static boolean verbose = false;
 
-    public static transient final Map<Item, CurrencyConfig> CURRENCY_CONFIGS = new HashMap<>();
-
     public static void refreshCurrencyItems() {
-        CURRENCY_CONFIGS.clear();
-        CURRENCY_CONFIGS.put(Items.IRON_INGOT, new CurrencyConfig(ironBribeCredit, ironRejectionChanceModifier));
-        CURRENCY_CONFIGS.put(Items.GOLD_INGOT, new CurrencyConfig(goldBribeCredit, goldRejectionChanceModifier));
-        CURRENCY_CONFIGS.put(Items.EMERALD, new CurrencyConfig(emeraldBribeCredit, emeraldRejectionChanceModifier));
-        CURRENCY_CONFIGS.put(Items.DIAMOND, new CurrencyConfig(diamondBribeCredit, diamondRejectionChanceModifier));
-        CURRENCY_CONFIGS.put(Items.NETHERITE_INGOT, new CurrencyConfig(netheriteBribeCredit, netheriteRejectionChanceModifier));
+        TransientConfig.CURRENCY_CONFIGS.clear();
+        TransientConfig.CURRENCY_CONFIGS.put(Items.IRON_INGOT, new CurrencyConfig(ironBribeCredit, ironRejectionChanceModifier));
+        TransientConfig.CURRENCY_CONFIGS.put(Items.GOLD_INGOT, new CurrencyConfig(goldBribeCredit, goldRejectionChanceModifier));
+        TransientConfig.CURRENCY_CONFIGS.put(Items.EMERALD, new CurrencyConfig(emeraldBribeCredit, emeraldRejectionChanceModifier));
+        TransientConfig.CURRENCY_CONFIGS.put(Items.DIAMOND, new CurrencyConfig(diamondBribeCredit, diamondRejectionChanceModifier));
+        TransientConfig.CURRENCY_CONFIGS.put(Items.NETHERITE_INGOT, new CurrencyConfig(netheriteBribeCredit, netheriteRejectionChanceModifier));
     }
 
 }
