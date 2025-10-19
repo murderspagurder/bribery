@@ -1,5 +1,6 @@
 package dev.spagurder.bribery.mixin;
 
+import dev.spagurder.bribery.core.BriberyUtil;
 import dev.spagurder.bribery.state.BribeData;
 import dev.spagurder.bribery.state.BriberyState;
 import net.minecraft.network.chat.Component;
@@ -27,7 +28,7 @@ public class ServerPlayerMixin {
         BribeData state = BriberyState.getBribeData(entity.getUUID(), player.getUUID());
         if (state == null) return;
         if (state.isRejected) {
-            player.getServer().getPlayerList().broadcastSystemMessage(
+            BriberyUtil.getEntityServer(player).getPlayerList().broadcastSystemMessage(
                     Component.empty()
                             .append(player.getDisplayName())
                             .append(" tried to bribe ")

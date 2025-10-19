@@ -6,8 +6,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.NeutralMob;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -59,6 +57,14 @@ public class BriberyUtil {
             if (clazz.isInstance(entity)) return true;
         }
         return false;
+    }
+
+    public static MinecraftServer getEntityServer(LivingEntity entity) {
+        //? >1.21.8 {
+        return entity.level().getServer();
+        //?} else {
+        /*return entity.getServer();
+        *///?}
     }
 
 }

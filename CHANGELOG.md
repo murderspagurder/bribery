@@ -1,4 +1,1 @@
-- Move transient config fields to separate class (fix GSON errors)
-- Add Thief Compat
-- Add Guard Villagers Compat
-- Neoforge Bugfix
+- 1.21.9/10 Support

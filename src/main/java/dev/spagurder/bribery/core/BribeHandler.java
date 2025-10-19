@@ -52,7 +52,7 @@ public class BribeHandler {
         BribeData state = BriberyState.getOrCreateBribeData(entity.getUUID(), player.getUUID());
         float credit = cc.bribeCredit * bribe.getCount();
         state.largestBribe = (int) Math.ceil(Math.max(state.largestBribe, credit));
-        long gameTime = BriberyUtil.overworldGameTime(entity.getServer());
+        long gameTime = BriberyUtil.overworldGameTime(BriberyUtil.getEntityServer(entity));
 
         if (state.isExtorting) {
             extort(entity, player, state, credit);
@@ -121,7 +121,7 @@ public class BribeHandler {
     }
 
     public static void accept(LivingEntity entity, ServerPlayer player, BribeData state, float credit, Random random) {
-        long gameTime = BriberyUtil.overworldGameTime(entity.getServer());
+        long gameTime = BriberyUtil.overworldGameTime(BriberyUtil.getEntityServer(entity));
         if (!state.isExtortionist) {
             if (random.nextFloat() < (Config.extortionistChance / 100f)) {
                 state.isExtortionist = true;
@@ -172,7 +172,7 @@ public class BribeHandler {
         state.isBribed = false;
         state.isCoolingDown = true;
         state.isRejected = true;
-        state.rejectedAt = BriberyUtil.overworldGameTime(entity.getServer());
+        state.rejectedAt = BriberyUtil.overworldGameTime(BriberyUtil.getEntityServer(entity));
         if (entity instanceof Villager villager) {
             villager.playSound(SoundEvents.VILLAGER_NO);
             ((ServerLevel) villager.level()).sendParticles(
@@ -211,7 +211,7 @@ public class BribeHandler {
                     true
             );
             state.isExtorting = false;
-            long gameTime = BriberyUtil.overworldGameTime(entity.getServer());
+            long gameTime = BriberyUtil.overworldGameTime(BriberyUtil.getEntityServer(entity));
             state.extortedAt = gameTime;
             state.bribedAt = gameTime;
         }
