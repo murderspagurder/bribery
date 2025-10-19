@@ -3,6 +3,9 @@ package dev.spagurder.bribery.client;
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.spagurder.bribery.Bribery;
 import net.minecraft.client.KeyMapping;
+//? if >1.21.8 {
+import net.minecraft.resources.ResourceLocation;
+//?}
 
 public class KeyMappings {
 
@@ -10,7 +13,14 @@ public class KeyMappings {
             "key." + Bribery.MOD_ID + ".openConfig",
             InputConstants.Type.KEYSYM,
             InputConstants.UNKNOWN.getValue(),
-            "category." + Bribery.MOD_ID + ".keybinds"
+            //? if >1.21.8 {
+            KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath(
+                    Bribery.MOD_ID, "keybinds"
+            ))
+            //?} else {
+            /*"category." + Bribery.MOD_ID + ".keybinds"
+            *///?}
+
     );
 
 }

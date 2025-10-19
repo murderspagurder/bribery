@@ -159,6 +159,11 @@
   key: {
     bribery: {
       openConfig: "Open Config"
+    },
+    category: {
+      bribery: {
+        keybinds: "Bribery"
+      }
     }
   },
   category: {
